@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const {addEdit , createStudent ,allList , editstudent} = require('../controllers/student')
+const {addEdit , createStudent ,allList ,getOne, editstudent} = require('../controllers/student')
 
 router.route('/').get(addEdit).post(createStudent);
-router.route('/list').get(allList);
-router.route('/:id').put(editstudent);
+router.route('/list').get(allList)
+router.route('/:id').get(getOne).put(editstudent);
 // router.route('/:id').get()
 
 module.exports = router

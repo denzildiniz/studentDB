@@ -17,7 +17,7 @@ const createStudent = async (req,res) =>{
            email:req.body.email
        })
        let result = await student.save();
-       res.status(201).render('student/list')
+       res.status(201).redirect('students/list')
    } catch (error) {
        console.log(error)
    }
@@ -40,13 +40,34 @@ const allList = async (req, res) => {
     }
 }
 
-const editstudent = async (req,res)=>{
+const getOne = async (req, res) => {
     try {
-        res.render('student/addEdit')
+        const student = await Student.findOne({_id:req.params.id});
+        res.render('student/addEdit',{
+            viewTitle:"update",
+            student:student
+        })
+    //    const student = await res.render('student/addEdit').json(student)
     } catch (error) {
         console.log(error)
     }
 }
 
 
-module.exports={addEdit ,createStudent,allList ,editstudent}
+const editstudent = async (req,res)=>{
+    try {
+        const result = await Student.findByIdAndUpdate({_id:req.params.id}, req.body ,{
+            new:true,
+            runValidators:true
+        });
+        res.render('student/list',{
+            viewTitle:"update",
+            student:result
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+module.exports={addEdit ,createStudent,allList,getOne ,editstudent}
