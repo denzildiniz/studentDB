@@ -15,6 +15,10 @@ app.set('views',path.join(__dirname,"./views/"));
 app.engine('hbs', hbs({
     extname:'hbs',
     defaultLayout:'mainLayout',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    },
     layoutsDir:__dirname + '/views/layouts'
 }));
 app.set('view engine', 'hbs')
