@@ -26,7 +26,7 @@ const start = async () =>{
     try {
         await connDB('mongodb://localhost:27017/StudentDB')
         app.listen(port,()=>{
-            console.log(`listening on port ${port}`)
+            console.log(`listening on port ${port}..`)
         })
     } catch (error) {
         console.log("connection failed with db")
