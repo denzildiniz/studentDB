@@ -1,5 +1,6 @@
 const Student = require('../models/schema');
 
+
 const addEdit = async (req,res)=>{
     try {
         res.render('student/addEdit',{
@@ -10,18 +11,26 @@ const addEdit = async (req,res)=>{
     }
 }
 
+
+
 const createStudent = async (req,res) =>{
-   try {
-       const student = new Student({
-           name:req.body.name,
-           email:req.body.email
-       })
-       let result = await student.save();
-       res.status(201).redirect('students/list')
-   } catch (error) {
-       console.log(error)
-   }
+    if(req.body._id != ""){
+        editstudent(req,res);
+        return
+    }
+        try {
+            const student = new Student({
+                name:req.body.name,
+                email:req.body.email
+            })
+            let result = await student.save();
+            res.status(201).redirect('students/list')
+        } catch (error) {
+            console.log(error)
+        }
 }
+   
+
 
 
 
@@ -40,6 +49,9 @@ const allList = async (req, res) => {
     }
 }
 
+
+
+
 const getOne = async (req, res) => {
     try {
         const student = await Student.findOne({_id:req.params.id});
@@ -54,16 +66,24 @@ const getOne = async (req, res) => {
 }
 
 
+
 const editstudent = async (req,res)=>{
     try {
         const student = await Student.findOneAndUpdate({_id:req.body._id}, req.body ,{
             new:true
+        },(err,docs)=>{
+            if(!err){
+                res.redirect('/students/list')
+            }
         });
-        console.log(student)
+        
     } catch (error) {
         console.log(error)
     }
 }
+
+
+
 
 const delStudent = async (req,res) =>{
     try {
@@ -73,5 +93,8 @@ const delStudent = async (req,res) =>{
         console.log(error)
     }
 }
+
+
+
 
 module.exports={addEdit ,createStudent,allList,getOne ,editstudent,delStudent}

@@ -5,7 +5,7 @@ const {addEdit , createStudent ,allList ,getOne, editstudent,delStudent} = requi
 
 router.route('/').get(addEdit).post(createStudent);
 router.route('/list').get(allList)
-router.route('/:id').get(getOne).put(editstudent);
+router.route('/:id').get(getOne).post(editstudent);
 router.route('/delete/:id').get(delStudent);
 // router.route('/:id').get()
 
