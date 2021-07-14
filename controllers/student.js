@@ -56,18 +56,22 @@ const getOne = async (req, res) => {
 
 const editstudent = async (req,res)=>{
     try {
-        const result = await Student.findByIdAndUpdate({_id:req.params.id}, req.body ,{
-            new:true,
-            runValidators:true
+        const student = await Student.findOneAndUpdate({_id:req.body._id}, req.body ,{
+            new:true
         });
-        res.render('student/list',{
-            viewTitle:"update",
-            student:result
-        })
+        console.log(student)
     } catch (error) {
         console.log(error)
     }
 }
 
+const delStudent = async (req,res) =>{
+    try {
+        const student = await Student.findOneAndDelete({_id:req.params.id});
+        res.redirect('/students/list')
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-module.exports={addEdit ,createStudent,allList,getOne ,editstudent}
+module.exports={addEdit ,createStudent,allList,getOne ,editstudent,delStudent}

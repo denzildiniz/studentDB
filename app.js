@@ -9,7 +9,7 @@ const student = require('./routes/student');
 const port = process.env.PORT || 2000;
 
 app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended:true}));
 
 app.set('views',path.join(__dirname,"./views/"));
 app.engine('hbs', hbs({
